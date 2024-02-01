@@ -1,0 +1,130 @@
+/* https://flatuicolors.com/palette/ca */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    
+    background-color: #222f3e;
+    color: #c8d6e5;
+}
+
+button {
+    font-size: larger;
+    color: #c8d6e5;
+    background-color: #576574;
+
+    border: 3px solid #c8d6e5;
+}
+
+button:hover {
+    background-color: #8395a7;
+}
+
+#ready-button {
+    width: 150px;
+    height: 60px;
+
+    position: absolute;
+    top: 510px;
+    left: 30px;
+}
+
+.text {
+    margin-left: 30px;
+}
+
+.board {
+    width: 300px;
+    height: 300px;
+
+    background-color: #c8d6e5;
+}
+
+#player-board {
+    position: absolute;
+    top: 160px;
+    left: 30px;
+
+    border: 10px solid #0abde3;
+}
+
+#computer-board {
+    position: absolute;
+    top: 160px;
+    left: 400px;
+
+    border: 10px solid #ee5253;
+}
+
+.cell {
+    width: 30px;
+    height: 30px;
+
+    background-color: #c8d6e5;
+    border: 1px solid #8395a7;
+}
+
+.ship-container {
+    width: 400px;
+}
+
+#ship-container1 {
+    position: absolute;
+    top: 500px;
+    left: 30px;
+}
+
+/* ship01: 4x1 */
+/* ship02: 3x1 */
+/* ship03: 3x1 */
+/* ship04: 2x1 */
+/* ship05: 2x1 */
+/* ship06: 2x1 */
+/* ship07: 1x1 */
+/* ship08: 1x1 */
+/* ship09: 1x1 */
+/* ship10: 1x1 */
+
+.ship {
+    margin-top: 10px;
+    background-color: #48dbfb;
+}
+#ship01 {
+    width: 120px;
+    height: 30px
+}
+#ship02 {
+    width: 90px;
+    height: 30px
+}
+#ship03 {
+    width: 90px;
+    height: 30px
+}
+#ship04 {
+    width: 60px;
+    height: 30px
+}
+#ship05 {
+    width: 60px;
+    height: 30px
+}
+#ship06 {
+    width: 60px;
+    height: 30px
+}
+#ship07 {
+    width: 30px;
+    height: 30px
+}
+#ship08 {
+    width: 30px;
+    height: 30px
+}
+#ship09 {
+    width: 30px;
+    height: 30px
+}
+#ship10 {
+    width: 30px;
+    height: 30px
+}
