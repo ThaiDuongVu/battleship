@@ -32,6 +32,19 @@ button:hover {
     margin-left: 30px;
 }
 
+#player-progress-text {
+    position: absolute;
+    top: 480px;
+    left: 370px;
+    color: #ee5253;
+}
+
+#computer-progress-text {
+    position: absolute;
+    top: 480px;
+    color: #0abde3;
+}
+
 .board {
     width: 300px;
     height: 300px;

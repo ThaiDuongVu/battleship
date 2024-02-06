@@ -3,6 +3,8 @@
 // 2: computer's turn
 // 3: finished
 let gameState = 0;
+let playerHitMiss = [0, 0]
+let computerHitMiss = [0, 0]
 
 // get a random integer between 2 values
 const getRandomInt = (min, max) => {
@@ -104,7 +106,7 @@ class Board {
 
         cell.listen('mouseover', () => {
           if (this.fillMatrix[y][x] != 2) {
-            cell.element.style.border = '2px solid #222f3e';
+            cell.element.style.border = '2px solid #8395a7';
           }
         });
         cell.listen('mouseout', () => {
@@ -125,7 +127,10 @@ class Board {
             const shipWidth = parseInt(event.dataTransfer.getData('shipWidth'));
 
             // ship position validation
-            if (x + shipWidth > 10) return;
+            if (x + shipWidth > 10) {
+              alert('Invalid ship position');
+              return;
+            }
             for (let i = x; i < x + shipWidth; i++) {
               if (this.fillMatrix[y][i] == 1) return;
             }
@@ -145,7 +150,7 @@ class Board {
             });
             if (fillCount == 20) {
               document.getElementById('ready-button').style.visibility = 'visible';
-              document.getElementById('state-text').innerHTML = 'Press "Ready" button to start';
+              document.getElementById('state-text').innerHTML = 'Press Ready button to start';
             }
           });
 
@@ -154,21 +159,25 @@ class Board {
         else if (this.id == 'computer-board') {
           // handle player bomb placement on board
           cell.listen('click', (event) => {
-            if (gameState != 1) return;
+            if (gameState != 1) {
+              return;
+            }
 
             // if cell already clicked
             if (this.fillMatrix[y][x] == 2) {
+              alert('Bomb already placed here!')
               return;
             }
             // if cell is not a ship
             else if (this.fillMatrix[y][x] == 0) {
               cell.element.style.backgroundColor = '#222f3e';
+              playerHitMiss[1]++;
             }
             // if cell is a ship
             else if (this.fillMatrix[y][x] == 1) {
               cell.element.style.backgroundColor = '#ee5253';
               this.shipsCellLeft--;
-
+              playerHitMiss[0]++;
               // player wins
               if (this.shipsCellLeft <= 0) {
                 alert('Player wins, press OK to restart');
@@ -182,6 +191,8 @@ class Board {
             // switch to computer's turn
             gameState = 2;
             document.getElementById('state-text').innerHTML = 'Red\'s turn to place a bomb...';
+            document.getElementById('player-progress-text').innerHTML = `Hit(s): ${playerHitMiss[0]} - Miss(es): ${playerHitMiss[1]}`;
+
             // delay, then computer place a bomb on player's board
             setTimeout(() => {
               playerBoard.placeBomb();
@@ -292,9 +303,8 @@ class Board {
     // if generated cell is a ship
     if (this.fillMatrix[position.y][position.x] == 1) {
       this.color(position.x, position.y, '#ee5253');
-  
       this.shipsCellLeft--;
-
+      computerHitMiss[0]++;
       // computer wins
       if (this.shipsCellLeft <= 0) {
         alert('Computer wins, press OK to restart');
@@ -303,10 +313,13 @@ class Board {
     }
     // if generated cell is not a ship
     else if (this.fillMatrix[position.y][position.x] == 0) {
-      this.color(position.x, position.y, '#222f3e')
+      this.color(position.x, position.y, '#222f3e');
+      computerHitMiss[1]++;
     }
+
     this.fillMatrix[position.y][position.x] = 2;
-    document.getElementById(`${this.id}-cell${position.x}${position.y}`).style.zIndex = "10";
+    document.getElementById(`${this.id}-cell${position.x}${position.y}`).style.zIndex = '10';
+    document.getElementById('computer-progress-text').innerHTML = `Hit(s): ${computerHitMiss[0]} - Miss(es): ${computerHitMiss[1]}`;
 
     // switch back to player's turn
     gameState = 1;
@@ -436,12 +449,16 @@ window.onload = () => {
   });
 
   document.getElementById('ready-button').style.visibility = 'hidden';
+  document.getElementById('player-progress-text').style.visibility = 'hidden';
+  document.getElementById('computer-progress-text').style.visibility = 'hidden';
 
   // on ready button clicked
   document.getElementById('ready-button').addEventListener('click', (event) => {
     gameState = 1;
     document.getElementById('state-text').innerHTML = 'Place a bomb on the red board';
     document.getElementById('ready-button').style.visibility = 'hidden';
+    document.getElementById('player-progress-text').style.visibility = 'visible';
+    document.getElementById('computer-progress-text').style.visibility = 'visible';
 
     // disable ship drag n drop
     ship01.element.draggable = false;
